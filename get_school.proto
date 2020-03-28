@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+# /get_school
+//支持哪些学校
+message GetSchoolsResponse {
+    int32 status_code = 1;
+    string message = 2;
+    repeated string schools = 3; //支持哪些学校
+}
