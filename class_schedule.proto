@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+// path = "/get_school" GET
+//支持哪些学校
+message GetSchoolsResponse {
+    int32 status_code = 1;
+    string message = 2;
+    repeated string schools = 3; //支持哪些学校
+}
+
+// path = "/set_school" POST
+//设置自己的学校
+message SetSchoolsRequest {
+    string school_name = 1;
+    string stu_id = 2;//学号
+    string stu_password = 3;//教务在线密码
+    string verify_code = 4;//验证码
+}
+
+message SetSchoolsResponse {
+    int32 status_code = 1;
+    string message = 2;
+    string alert_message = 3;
+}
+
+enum Week{ //枚举消息类型
+    Mon = 0;
+    Tue = 1;
+    Wed = 2;
+    Thur = 3;
+    Fri = 4;
+    Sat = 5;
+    Sun = 6;
+}
+
+message Course {
+    Week week_num = 1;//周几的课
+    int32 class_num = 2;//第几节
+    string course_name = 3;
+    string teacher_name = 4;
+}
+// path = "/get_course/current" GET
+//获取当前课程表
+
+message GetCurClassResponse {
+    int32 status_code = 1;
+    string message = 2;
+    string alert_message = 3;
+    string school_name = 4;//学校名
+    int32 week = 5; //当前周是第几周
+    repeated Course courses = 6;//这周的所有课
+
+}
+
+// path = "/get_course/by_week" GET
+// 获取第week周的课程表
+message GetCourseByWeekNumRequest {
+    string school_name = 1;//学校名
+    int32 week = 2;//第几周的课
+}
+
+message GetCourseByWeekNumResponse{
+    int32 status_code = 1;
+    string message = 2;
+    string alert_message = 3;
+    string school_name = 4;
+    int32 week = 5; //这是第几周的课
+    repeated Course courses = 6;//这周的所有课
+}
+
+// path = "/set_school/verify_code" GET
+//获取图片验证码
+
+message GetVerifyCodeRequest {
+    string school_name = 1;
+}
+
+message GetVerifyCodeResponse {
+    int32 status_code = 1;
+    string message = 2;
+    string url = 3;
+}
+
+
+// path = "/set_course/cur_week" POST
+//设置当前周
+
+message SetCurWeekRequest {
+    int32 week = 1;
+}
+
+message SetCurWeekResponse {
+     int32 status_code = 1;
+     string message = 2;
+}
